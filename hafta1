@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Hafta: Sinüzoidler ve Fazör Kavramı - EP 104</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            background-color: #1e293b; /* Osiloskop ekranı rengi */
+            border-radius: 8px;
+            border: 4px solid #334155;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #d97706;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 2px solid white;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 3px;
+        }
+
+        /* Kart Efektleri */
+        .info-card {
+            transition: transform 0.2s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Quiz Styles */
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #fffbeb;
+            border-color: #d97706;
+        }
+        .option-btn.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+            color: #14532d;
+        }
+        .option-btn.wrong {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+            color: #7f1d1d;
+        }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-amber-200 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-600 text-white p-2 rounded-lg shadow-md font-mono text-xl font-bold tracking-wider">
+                    EP 104
+                </div>
+                <div class="leading-tight">
+                    <h1 class="text-lg font-bold text-slate-800">1. Hafta</h1>
+                    <p class="text-xs text-amber-700 font-semibold">Sinüzoidler ve Fazörler</p>
+                </div>
+            </div>
+            <a href="index.html" class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                Ana Sayfa
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-16 max-w-4xl">
+
+        <!-- 1. AC vs DC (Gerçek Hayat Örneği) -->
+        <section>
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold">1</span>
+                <h2 class="text-2xl font-bold text-slate-800">Bilmecemiz Var: AC mi DC mi?</h2>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <p class="text-slate-600 text-lg">Telefon şarj aletinize hiç baktınız mı?</p>
+                        <div class="bg-slate-100 p-4 rounded-lg border-l-4 border-slate-500 font-mono text-sm text-slate-700">
+                            INPUT: 100-240V <span class="font-bold text-red-600">AC</span><br>
+                            OUTPUT: 5V <span class="font-bold text-blue-600">DC</span>
+                        </div>
+                        <p class="text-slate-600">Prizden gelen elektrik (AC) dalgalıdır, ama telefonunuz düz (DC) elektrikle çalışır.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- DC Card -->
+                        <div class="info-card bg-blue-50 p-4 rounded-xl border border-blue-100 text-center">
+                            <div class="text-3xl mb-2">🔋</div>
+                            <h3 class="font-bold text-blue-800 mb-1">DC (Doğru Akım)</h3>
+                            <p class="text-xs text-blue-600">Araba Aküsü, Pil</p>
+                            <div class="mt-3 h-1 w-full bg-blue-500"></div>
+                            <p class="text-[10px] text-blue-400 mt-1">Dümdüz akan nehir gibi</p>
+                        </div>
+                        <!-- AC Card -->
+                        <div class="info-card bg-amber-50 p-4 rounded-xl border border-amber-100 text-center">
+                            <div class="text-3xl mb-2">⚡</div>
+                            <h3 class="font-bold text-amber-800 mb-1">AC (Alternatif)</h3>
+                            <p class="text-xs text-amber-600">Ev Prizi, Şebeke</p>
+                            <!-- Simple SVG wave -->
+                            <svg class="mt-2 w-full h-4" viewBox="0 0 100 20">
+                                <path d="M0,10 Q25,-10 50,10 T100,10" fill="none" stroke="#d97706" stroke-width="2"/>
+                            </svg>
+                            <p class="text-[10px] text-amber-400 mt-1">Deniz dalgası gibi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Sinyalin Anatomisi (İnteraktif Osiloskop) -->
+        <section>
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold">2</span>
+                <h2 class="text-2xl font-bold text-slate-800">Sinyali Okumak: Osiloskop Simülatörü</h2>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-slate-600 mb-6">
+                    Mühendislikte sinüs dalgası şu formülle yazılır: $v(t) = V_m \sin(\omega t)$.<br>
+                    Bu karmaşık görünen formül aslında sadece 2 şeye bağlıdır: <b>Boyu (Genlik)</b> ve <b>Hızı (Frekans)</b>.
+                </p>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Controls -->
+                    <div class="space-y-6 bg-slate-50 p-5 rounded-xl border border-slate-200 h-fit">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-sm font-bold text-slate-700">Genlik ($V_m$)</label>
+                                <span class="text-sm font-mono bg-white px-2 rounded border border-slate-300 text-amber-600" id="disp-amp">220 V</span>
+                            </div>
+                            <input type="range" id="input-amp" min="10" max="350" value="220" step="10" oninput="updateOscilloscope()">
+                            <p class="text-xs text-slate-500 mt-1">Dalganın tepe yüksekliği (Gücü).</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-sm font-bold text-slate-700">Frekans ($f$)</label>
+                                <span class="text-sm font-mono bg-white px-2 rounded border border-slate-300 text-amber-600" id="disp-freq">50 Hz</span>
+                            </div>
+                            <input type="range" id="input-freq" min="1" max="100" value="50" step="1" oninput="updateOscilloscope()">
+                            <p class="text-xs text-slate-500 mt-1">Saniyedeki tur sayısı (Türkiye'de 50Hz).</p>
+                        </div>
+
+                        <!-- Hesaplanan Değerler -->
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-100 mt-4">
+                            <h4 class="text-xs font-bold text-amber-800 uppercase mb-2">Otomatik Hesaplananlar</h4>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs text-amber-700">Periyot (T):</span>
+                                <span class="text-sm font-mono font-bold text-amber-900" id="calc-period">0.02 s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-amber-700">Açısal Hız ($\omega$):</span>
+                                <span class="text-sm font-mono font-bold text-amber-900" id="calc-omega">314 rad/s</span>
+                            </div>
+                            <div class="mt-2 pt-2 border-t border-amber-200 text-[10px] text-amber-600 italic text-center">
+                                Formül: $T = 1/f$ ve $\omega = 2\pi f$
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="lg:col-span-2">
+                        <div class="chart-container">
+                            <canvas id="oscChart"></canvas>
+                            <!-- Grid Overlay Effect -->
+                            <div class="absolute inset-0 pointer-events-none" 
+                                 style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;">
+                            </div>
+                        </div>
+                        <div class="mt-2 flex justify-between text-xs text-slate-400">
+                            <span>0 sn</span>
+                            <span id="time-axis-label">0.04 sn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Phase Difference (Yarış Analojisi) -->
+        <section>
+            <div class="flex items-center gap-3 mb-6">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 text-amber-700 font-bold">3</span>
+                <h2 class="text-2xl font-bold text-slate-800">Faz Farkı: Yarış Pisti</h2>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3 space-y-4">
+                        <p class="text-slate-600 text-sm">
+                            Voltaj ve Akım birer koşucu gibidir. Biri diğerinden önce başlayabilir. Buna <b>Faz Farkı</b> denir.
+                        </p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">
+                                Faz Açısı: <span id="disp-phase" class="text-purple-600">0</span>&deg;
+                            </label>
+                            <input type="range" id="input-phase" min="-90" max="90" value="0" step="10" oninput="updatePhase()">
+                            
+                            <div id="phase-message" class="mt-4 p-3 rounded-lg text-center text-sm font-bold bg-green-100 text-green-700 border border-green-200 transition-colors">
+                                Berabere (Direnç)
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-slate-500">
+                            <div class="flex items-center gap-2 mb-1"><span class="w-3 h-3 rounded-full bg-blue-500"></span> Voltaj (Sabit)</div>
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-500"></span> Akım (Hareketli)</div>
+                        </div>
+                    </div>
+
+                    <div class="md:w-2/3">
+                        <div class="chart-container" style="background-color: #fff; border: 1px solid #e2e8f0; box-shadow: none;">
+                            <canvas id="phaseChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Calculator Corner (Pratik) -->
+        <section class="bg-slate-800 text-slate-100 p-8 rounded-2xl shadow-lg relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500 opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-3xl">🧮</span>
+                    <h2 class="text-2xl font-bold text-white">Hesap Makinesi Köşesi</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="mb-4 text-slate-300">
+                            Mühendislikte uzun denklemlerle uğraşmayız. Hesap makinesini kullanırız.
+                            Sanal sayı (j) aslında bir <b>YÖN</b> belirtir.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="bg-slate-700 p-3 rounded-lg border border-slate-600 flex justify-between items-center">
+                                <span>1. Düz Sayı (Direnç)</span>
+                                <span class="font-mono text-amber-400">5</span>
+                            </div>
+                            <div class="bg-slate-700 p-3 rounded-lg border border-slate-600 flex justify-between items-center">
+                                <span>2. Yukarı Bakan (Bobin)</span>
+                                <span class="font-mono text-amber-400">j4</span>
+                            </div>
+                            <div class="bg-slate-700 p-3 rounded-lg border border-slate-600 flex justify-between items-center">
+                                <span>3. Aşağı Bakan (Kondansatör)</span>
+                                <span class="font-mono text-amber-400">-j2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                        <h3 class="font-bold text-amber-500 mb-4 border-b border-slate-700 pb-2">Hayat Kurtaran Tuşlar</h3>
+                        <p class="text-sm text-slate-400 mb-4">Karmaşık sayıyı ($3+j4$) açıya çevirmek için:</p>
+                        
+                        <div class="flex flex-wrap gap-2 text-sm font-bold text-slate-800">
+                            <span class="bg-white px-3 py-1 rounded shadow">Pol(</span>
+                            <span class="bg-white px-3 py-1 rounded shadow">3</span>
+                            <span class="bg-white px-3 py-1 rounded shadow">,</span>
+                            <span class="bg-white px-3 py-1 rounded shadow">4</span>
+                            <span class="bg-white px-3 py-1 rounded shadow">)</span>
+                            <span class="bg-amber-500 text-white px-3 py-1 rounded shadow">=</span>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <span class="text-xs text-slate-500 block mb-1">Ekranda Ne Görürsün?</span>
+                            <span class="font-mono text-xl text-green-400">r=5, $\theta$=53.1&deg;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Quiz -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Kendini Dene</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6" id="quiz-container">
+                <!-- Sorular JS ile buraya gelecek -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-50 border-t border-slate-200 mt-20 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 EP 104 Alternatif Akım Devre Analizi</p>
+        <p class="mt-1">Nuh Naci Yazgan Üniversitesi - MYO Elektrik Programı</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- 1. Osiloskop Simülasyonu ---
+        const ctxOsc = document.getElementById('oscChart').getContext('2d');
+        
+        // Gradient oluştur (Osiloskop çizgisi efekti)
+        let gradient = ctxOsc.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(217, 119, 6, 0.5)');
+        gradient.addColorStop(1, 'rgba(217, 119, 6, 0)');
+
+        let oscChart = new Chart(ctxOsc, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Voltaj v(t)',
+                    data: [],
+                    borderColor: '#fbbf24', // Parlak Amber
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 0 },
+                interaction: { intersect: false },
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { display: false }, // Zaman ekseni gizli
+                    y: { 
+                        min: -360, 
+                        max: 360, 
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94a3b8' }
+                    }
+                },
+                layout: { padding: 10 }
+            }
+        });
+
+        function updateOscilloscope() {
+            const Vm = parseFloat(document.getElementById('input-amp').value);
+            const f = parseFloat(document.getElementById('input-freq').value);
+
+            // UI Update
+            document.getElementById('disp-amp').innerText = Vm + " V";
+            document.getElementById('disp-freq').innerText = f + " Hz";
+
+            // Calculation Update
+            const T = 1 / f;
+            const w = 2 * Math.PI * f;
+            document.getElementById('calc-period').innerText = T.toFixed(3) + " s";
+            document.getElementById('calc-omega').innerText = w.toFixed(0) + " rad/s";
+
+            // Generate Data (Shows roughly 2 cycles for visual clarity)
+            const labels = [];
+            const data = [];
+            const samplingRate = 0.0001; // High res
+            const displayTime = 2 / f; // Show 2 periods dynamically
+
+            // Limit data points to avoid lag
+            const points = 200; 
+            const step = displayTime / points;
+
+            for(let t = 0; t <= displayTime; t += step) {
+                labels.push(t);
+                data.push(Vm * Math.sin(2 * Math.PI * f * t));
+            }
+
+            oscChart.data.labels = labels;
+            oscChart.data.datasets[0].data = data;
+            
+            // Y ekseni ölçeğini dinamik yapma (Osiloskop kademesi gibi)
+            oscChart.options.scales.y.min = -Vm * 1.2;
+            oscChart.options.scales.y.max = Vm * 1.2;
+            
+            oscChart.update();
+            
+            // Update time axis label
+            document.getElementById('time-axis-label').innerText = (displayTime*1000).toFixed(0) + " ms";
+        }
+
+
+        // --- 2. Faz Farkı Simülasyonu ---
+        const ctxPhase = document.getElementById('phaseChart').getContext('2d');
+        let phaseChart = new Chart(ctxPhase, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Voltaj (V)',
+                        data: [],
+                        borderColor: '#3b82f6', // Mavi
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Akım (I)',
+                        data: [],
+                        borderColor: '#ef4444', // Kırmızı
+                        borderWidth: 3,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 0 },
+                scales: {
+                    x: { display: false },
+                    y: { display: false, min: -1.5, max: 1.5 }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        function updatePhase() {
+            const phi = parseFloat(document.getElementById('input-phase').value);
+            document.getElementById('disp-phase').innerText = phi;
+
+            // Feedback Text
+            const msgBox = document.getElementById('phase-message');
+            if(phi === 0) {
+                msgBox.innerText = "Aynı Anda Başladılar (Direnç - R)";
+                msgBox.className = "mt-4 p-3 rounded-lg text-center text-sm font-bold bg-green-100 text-green-700 border border-green-200 transition-colors";
+            } else if (phi > 0) {
+                msgBox.innerText = "Akım Önden Gidiyor (Kondansatör - C)";
+                msgBox.className = "mt-4 p-3 rounded-lg text-center text-sm font-bold bg-amber-100 text-amber-700 border border-amber-200 transition-colors";
+            } else {
+                msgBox.innerText = "Akım Geride Kaldı (Bobin - L)";
+                msgBox.className = "mt-4 p-3 rounded-lg text-center text-sm font-bold bg-blue-100 text-blue-700 border border-blue-200 transition-colors";
+            }
+
+            // Generate Data
+            const labels = [];
+            const dataV = [];
+            const dataI = [];
+            const steps = 100;
+            const phiRad = phi * (Math.PI / 180);
+
+            for(let i=0; i<=steps; i++) {
+                const t = (i / steps) * 4 * Math.PI; // 2 cycles (4PI)
+                labels.push(i);
+                dataV.push(Math.sin(t));
+                dataI.push(0.7 * Math.sin(t + phiRad)); // I slightly smaller for visual distinction
+            }
+
+            phaseChart.data.labels = labels;
+            phaseChart.data.datasets[0].data = dataV;
+            phaseChart.data.datasets[1].data = dataI;
+            phaseChart.update();
+        }
+
+
+        // --- 3. Quiz Logic ---
+        const questions = [
+            {
+                q: "Prizdeki elektrik (AC) neye benzer?",
+                options: [
+                    { t: "Dümdüz akan nehire", c: false },
+                    { t: "İleri geri giden deniz dalgasına", c: true },
+                    { t: "Durmuş bir göle", c: false }
+                ]
+            },
+            {
+                q: "Sinüs dalgasının tepesindeki en yüksek noktaya ne denir?",
+                options: [
+                    { t: "Frekans", c: false },
+                    { t: "Periyot", c: false },
+                    { t: "Genlik (Vm)", c: true }
+                ]
+            },
+            {
+                q: "Türkiye'de şebeke elektriğinin frekansı kaçtır?",
+                options: [
+                    { t: "60 Hz", c: false },
+                    { t: "50 Hz", c: true },
+                    { t: "220 Hz", c: false }
+                ]
+            },
+            {
+                q: "Hesap makinesinde 'sanal sayı' (j) ile işlem yapmak için hangi moda geçmeliyiz?",
+                options: [
+                    { t: "CMPLX (Karmaşık)", c: true },
+                    { t: "STAT (İstatistik)", c: false },
+                    { t: "COMP (Normal)", c: false }
+                ]
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            let html = '';
+            
+            questions.forEach((q, idx) => {
+                html += `
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-3">${idx+1}. ${q.q}</h4>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, i) => `
+                            <button onclick="checkAnswer(this, ${opt.c})" class="option-btn w-full p-3 rounded-lg border border-slate-200 text-sm font-medium text-slate-600">
+                                ${opt.t}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="mt-3 text-xs font-bold hidden feedback"></div>
+                </div>`;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function checkAnswer(btn, isCorrect) {
+            const parent = btn.parentElement;
+            const feedback = parent.nextElementSibling;
+            
+            // Disable all buttons in this question
+            const allBtns = parent.querySelectorAll('button');
+            allBtns.forEach(b => b.disabled = true);
+
+            if(isCorrect) {
+                btn.classList.add('correct');
+                feedback.innerHTML = "<span class='text-green-600'>Tebrikler! Doğru cevap.</span>";
+            } else {
+                btn.classList.add('wrong');
+                feedback.innerHTML = "<span class='text-red-500'>Maalesef yanlış. Tekrar deneyin.</span>";
+                // Show correct one visually
+                // (Optional: loop through to find correct and highlight it)
+            }
+            feedback.classList.remove('hidden');
+        }
+
+        // --- Init ---
+        window.onload = function() {
+            updateOscilloscope();
+            updatePhase();
+            renderQuiz();
+        };
+
+    </script>
+</body>
+</html>
