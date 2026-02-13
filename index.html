@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EP 104: Alternatif Akım Devre Analizi - Ders Portalı</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #0f172a; /* Slate-900 */
+        }
+        .week-card {
+            transition: all 0.3s ease;
+        }
+        .week-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <header class="bg-white border-b border-amber-200">
+        <div class="container mx-auto px-4 py-16 md:py-24 text-center max-w-4xl">
+            <div class="flex justify-center gap-2 mb-4">
+                <span class="inline-block py-1 px-3 rounded-full bg-amber-100 text-amber-800 text-sm font-bold">Meslek Yüksekokulu</span>
+                <span class="inline-block py-1 px-3 rounded-full bg-slate-100 text-slate-800 text-sm font-bold">Elektrik Programı</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                Alternatif Akım<br><span class="text-amber-600">Devre Analizi</span>
+            </h1>
+            <p class="text-xl text-slate-600 mb-8 leading-relaxed">
+                Sinüzoidal dalga formlarından rezonans devrelerine: AC sistemlerin temelini, fazör analizini ve güç kavramlarını keşfedin.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#weeks" class="px-8 py-3 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-700 transition-colors shadow-lg shadow-amber-200 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" /></svg>
+                    Derslere Başla
+                </a>
+                <a href="#syllabus" class="px-8 py-3 bg-white text-slate-700 border border-slate-300 font-bold rounded-lg hover:bg-slate-50 transition-colors">
+                    Ders Hakkında
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 space-y-20 max-w-6xl">
+
+        <!-- Course Info Grid -->
+        <section id="syllabus" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Objective -->
+            <div class="md:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Dersin Amacı</h2>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    Bu dersin amacı; öğrencilere alternatif akım (AC) ve gerilim ile ilgili temel kavramları, sinüzoidal dalga formlarını ve bunların fazörlerle gösterimini öğretmektir. Direnç (R), Bobin (L) ve Kondansatör (C) elemanlarının alternatif akıma karşı gösterdiği tepkileri (empedans) analiz edebilme, temel devre yasalarını (Kirchhoff) ve çözüm yöntemlerini AC devrelere uygulayabilme becerisi kazandırmaktır. Ayrıca rezonans, güç ve güç katsayısı kavramlarının kavranması hedeflenmektedir.
+                </p>
+            </div>
+
+            <!-- Resources -->
+            <div class="bg-slate-800 text-slate-300 p-8 rounded-2xl shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-slate-700 rounded-lg text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">Kaynaklar</h2>
+                </div>
+                <ul class="space-y-4 text-sm">
+                    <li>
+                        <strong class="block text-white">Ders Notları:</strong>
+                        Öğr. Gör. Hüseyin Hakkomaz Sunumları
+                    </li>
+                    <li class="border-t border-slate-600 pt-4">
+                        <strong class="block text-white">Yardımcı Kitap:</strong>
+                        Fundamentals of Electric Circuits (Alexander & Sadiku)
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Weekly Modules -->
+        <section id="weeks">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-slate-900">Haftalık Ders İçeriği</h2>
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">14 Hafta</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- BÖLÜM 1: TEMELLER -->
+                <div class="md:col-span-2 lg:col-span-3 mt-4 mb-2">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Bölüm 1: AC Temelleri ve Fazörler</h3>
+                </div>
+
+                <!-- WEEK 1 -->
+                <a href="hafta1.html" class="week-card group block bg-white border-l-4 border-amber-500 rounded-r-xl shadow-sm p-6 relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded">BAŞLA</div>
+                    <span class="text-xs font-bold text-slate-400 block mb-2">1. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Sinüzoidal Dalga Formları</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Periyot, Frekans, Genlik kavramları ve DC devre temellerinin tekrarı.</p>
+                </a>
+
+                <!-- WEEK 2 -->
+                <a href="hafta2.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">2. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Karmaşık Sayılar ve Fazörler</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Kutupsal ve Kartezyen formlar, Fazör diyagramları ve trigonometri.</p>
+                </a>
+
+                <!-- WEEK 3 -->
+                <a href="hafta3.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">3. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">R-L-C ve Empedans</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Elemanların AC davranışı, Reaktans ve Empedans kavramları.</p>
+                </a>
+
+                <!-- BÖLÜM 2: DEVRE ÇÖZÜMLERİ -->
+                <div class="md:col-span-2 lg:col-span-3 mt-8 mb-2 border-t border-slate-200 pt-8">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Bölüm 2: Temel Analiz Yöntemleri</h3>
+                </div>
+
+                <!-- WEEK 4 -->
+                <a href="hafta4.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">4. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Seri Devre Analizi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">R-L, R-C ve R-L-C seri devrelerin çözümü ve eşdeğer empedans.</p>
+                </a>
+
+                <!-- WEEK 5 -->
+                <a href="hafta5.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">5. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Paralel Devre Analizi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Paralel kollarda akım dağılımı ve Admitans (Y) kavramı.</p>
+                </a>
+
+                <!-- WEEK 6 -->
+                <a href="hafta6.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">6. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Seri-Paralel (Karışık) Devreler</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Karışık devrelerin indirgenmesi ve eşdeğer empedans hesabı.</p>
+                </a>
+
+                <!-- BÖLÜM 3: İLERİ ANALİZ TEKNİKLERİ -->
+                <div class="md:col-span-2 lg:col-span-3 mt-8 mb-2 border-t border-slate-200 pt-8">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Bölüm 3: Devre Teoremleri</h3>
+                </div>
+
+                <!-- WEEK 7 -->
+                <a href="hafta7.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">7. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Kirchhoff Yasaları (AC)</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Akım ve Gerilim yasalarının AC devrelerde fazörlerle uygulanması.</p>
+                </a>
+
+                <!-- WEEK 8 -->
+                <a href="hafta8.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">8. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Çevre Akımları Yöntemi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Matris ve determinant kullanarak gözlü devrelerin çözümü.</p>
+                </a>
+
+                <!-- WEEK 9 -->
+                <a href="hafta9.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">9. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Düğüm Gerilimleri Yöntemi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Düğüm noktalarındaki gerilimleri kullanarak devre analizi.</p>
+                </a>
+
+                <!-- WEEK 10 -->
+                <a href="hafta10.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">10. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Süperpozisyon Teoremi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Birden fazla kaynaklı AC devrelerin analizi.</p>
+                </a>
+
+                 <!-- WEEK 11 -->
+                 <a href="hafta11.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">11. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Thevenin Teoremi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Kaynak dönüşümü ve karmaşık devrelerin Thevenin eşdeğeri.</p>
+                </a>
+
+                 <!-- WEEK 12 -->
+                 <a href="hafta12.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">12. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Norton ve Maks. Güç</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Norton teoremi ve AC devrede maksimum güç transferi şartları.</p>
+                </a>
+
+                <!-- BÖLÜM 4: GÜÇ VE REZONANS -->
+                <div class="md:col-span-2 lg:col-span-3 mt-8 mb-2 border-t border-slate-200 pt-8">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Bölüm 4: Güç ve Frekans Cevabı</h3>
+                </div>
+
+                <!-- WEEK 13 -->
+                <a href="hafta13.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">13. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">AC Güç Analizi</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Aktif, Reaktif, Görünür güç, Güç Üçgeni ve Kompanzasyon.</p>
+                </a>
+
+                <!-- WEEK 14 -->
+                <a href="hafta14.html" class="week-card group block bg-white border border-slate-200 rounded-xl shadow-sm p-6 hover:border-amber-300">
+                    <span class="text-xs font-bold text-slate-400 block mb-2">14. HAFTA</span>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-amber-600 transition-colors">Rezonans ve Filtreler</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Seri ve Paralel rezonans devreleri, bant genişliği ve filtreler.</p>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Outcomes Section -->
+        <section class="bg-amber-900 rounded-2xl p-8 md:p-12 shadow-lg mt-12 text-white">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Öğrenim Çıktıları
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">Alternatif akımın üretim prensiplerini ve doğru akımdan farklarını tanımlar.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">AC devre analizinde karmaşık sayılarla dört işlem ve kutupsal/kartezyen dönüşüm yapar.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">Seri, paralel ve karışık bağlı devrelerde akım, gerilim düşümü ve güç değerlerini hesaplar.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">Devre teoremlerinin (Thevenin, Norton vb.) AC devrelerdeki uygulama kurallarını açıklar.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">İş sağlığı ve güvenliği kurallarına uygun olarak elektriksel ölçüm ve devre kurulumu yapar.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="mt-1 min-w-[20px] h-5 rounded-full bg-amber-500 flex items-center justify-center text-xs">✓</div>
+                    <p class="text-amber-100">Enerji verimliliği açısından güç katsayısının önemini değerlendirir.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-50 border-t border-slate-200 mt-20">
+        <div class="container mx-auto px-4 py-8 text-center text-slate-500">
+            <p>&copy; 2026 EP 104 Alternatif Akım Devre Analizi</p>
+            <p class="text-xs mt-2">Bu portal ders materyallerine erişim amacıyla hazırlanmıştır.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
